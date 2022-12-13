@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useContext } from "react";
+import { createContext, ReactNode, useContext, useState } from "react";
 
 type ShoppingCartProviderProps = {
 	children: ReactNode;
@@ -11,6 +11,11 @@ type ShoppingCartContext = {
 	removeFromCart: (id: number) => void;
 };
 
+type CartItem = {
+	id: number;
+	quantity: number;
+};
+
 const ShoppingCartContext = createContext({} as ShoppingCartContext);
 
 export function useShoppingCart() {
@@ -18,6 +23,8 @@ export function useShoppingCart() {
 }
 
 export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
+	const [cartItems, setCartItems] = useState<CartItem[]>([]);
+
 	return (
 		<ShoppingCartContext.Provider value={{}}>
 			{children}
